@@ -1,0 +1,1 @@
+create table studentn (id int not null auto_increment, name varchar(20), surename varchar(20), primary key (id));

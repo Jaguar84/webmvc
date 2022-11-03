@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://thymeLeaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Telebe qeydiyyat</title>
+</head>
+
+<body>
+<a th:href="@{/students/list}">Telebeler</a>
+<h1>Telebe qedyiyyati</h1>
+
+
+<form th:object="${student}" th:action="@{/students/save}" th:method="POST">
+    <label for="student-name">Ad:</label><br/>
+    <input id="student-name" type="text" th:field="*{name}"><br/>
+
+    <label for="student-surname">Soyad:</label><br/>
+    <input id="student-surname"  type="text" th:field="*{sureName}"><br/>
+    <input type="submit" value="Yadda saxla">
+</form>
+</body>
+</html>
