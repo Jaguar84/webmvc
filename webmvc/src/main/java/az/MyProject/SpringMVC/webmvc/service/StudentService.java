@@ -6,8 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,8 +41,13 @@ public class StudentService {
 
     }
 
-    public void findById(Integer id){
-        repository.findById();
+    public Student findById(Integer id){
+      return repository.findById(id);
 
+    }
+
+    public void editStudent(Student student) {
+
+        repository.editStudentDb(student);
     }
 }

@@ -48,14 +48,21 @@ public class StudentController {
     @GetMapping(path = "/new")
     public String showAddStudentPage(Model model) {
         Student s = new Student();
+        s.setId(0);
         model.addAttribute("student", s);
+        model.addAttribute("header","Tələbə qeydiyyatı");
        // s.setName("Nusret");
         return "save-student";
     }
 
     @PostMapping(path = "/save")
     public String saveStudent(@ModelAttribute(name="student") Student student){
-        studentService.addStudent(student);
+        if(student.getId()==0){
+            studentService.addStudent(student);
+        }else if(student.getId()>0){
+            studentService.editStudent(student);
+        }
+
         return "redirect:/students/list";
     }
 
@@ -65,9 +72,11 @@ public class StudentController {
         return "redirect:/students/list";
     }
 
-    @GetMapping(path = "/  /{id}")
-    public String showEditStudentPage(@PathVariable(name="id") Integer id) {
-        studentService.deleteById(id);
+    @GetMapping(path = "/edit/{id}")
+    public String showEditStudentPage(@PathVariable(name="id") Integer id, Model model) {
+        Student student=studentService.findById(id);
+        model.addAttribute("student", student);
+        model.addAttribute("header","Tələbə məlumatlarının redaktəsi");
         return "save-student";
     }
 
