@@ -41,4 +41,9 @@ public class StudentService {
         repository.deleteById(id);
 
     }
+
+    public void findById(Integer id){
+        repository.findById();
+
+    }
 }

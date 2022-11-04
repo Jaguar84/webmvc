@@ -73,4 +73,27 @@ public class StudentRepository {
             exc.printStackTrace();
         }
     }
+
+    public void findById(Integer id){
+        try{
+            Connection connection=dataSource.getConnection();
+            PreparedStatement statement=connection
+                    .prepareStatement("select * from studentn where id=?");
+            statement.setInt(1,id);
+            ResultSet resultSet=statement.executeQuery();
+
+      resultSet.next();
+                Student student=new Student(resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("surename"));
+
+            statement.close();
+            connection.close();
+        }catch (Exception exc){
+            exc.printStackTrace();
+        }
+        //return students;
+
+    }
+
 }

@@ -65,4 +65,10 @@ public class StudentController {
         return "redirect:/students/list";
     }
 
+    @GetMapping(path = "/  /{id}")
+    public String showEditStudentPage(@PathVariable(name="id") Integer id) {
+        studentService.deleteById(id);
+        return "save-student";
+    }
+
 }
