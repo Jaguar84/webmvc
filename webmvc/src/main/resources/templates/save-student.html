@@ -12,28 +12,85 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
             integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
             crossorigin="anonymous"></script>
-
+    <style>
+        .validation-error {
+            color: red;
+            font-weight: bolder;
+        }
+    </style>
 </head>
 
 <body>
-<div style="width: 30%; margin: auto">
-    <a th:href="@{/students/list}" class="btn btn-primary">Telebeler</a>
-    <h1  th:text="${header}"></h1>
+<div style="width: 80%; margin: auto">
+    <h1 style="text-align: center" th:text="${header}"></h1>
+    <div style="text-align: center">
+        <a style="text-align: center" th:href="@{/students/list}" class="btn btn-primary">Telebeler</a>
+    </div>
+
+
 
 
     <form th:object="${student}" th:action="@{/students/save}" th:method="POST">
         <input th:field="*{id}" type="hidden">
+     <div class="container">
+         <div class="row">
+         <div class="col-2"></div>
+         <div class="col-sm-4">
         <div class="form-group">
             <label for="student-name">Ad:</label><br/>
             <input class="form-control" id="student-name" type="text" th:field="*{name}">
+            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="validation-error"></div>
         </div>
 
         <div class="form-group">
             <label for="student-surname">Soyad:</label><br/>
             <input class="form-control" id="student-surname" type="text" th:field="*{sureName}">
+            <div th:if="${#fields.hasErrors('sureName')}" th:errors="*{sureName}" class="validation-error"></div>
+        </div>
+        <div class="form-group">
+            <label for="student-class">Sinif:</label><br/>
+            <input class="form-control" id="student-class" type="number" th:field="*{studentClass}">
+            <div th:if="${#fields.hasErrors('studentClass')}" th:errors="*{studentClass}"
+                 class="validation-error"></div>
         </div>
 
+        <div class="form-group">
+            <label for="student-birthday">Doğum tarixi:</label><br/>
+            <input class="form-control" id="student-birthday" type="date" th:field="*{birthday}">
+            <div th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}" class="validation-error"></div>
+        </div>
+         </div>
+         <div class="col-sm-4">
+        <div class="form-group">
+            <label for="student-email">E-mail:</label><br/>
+            <input class="form-control" id="student-email" th:field="*{email}">
+            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="validation-error"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="student-course-code">Kurs kodu:</label><br/>
+            <input class="form-control" id="student-course-code" th:field="*{courseCode}">
+            <div th:if="${#fields.hasErrors('courseCode')}" th:errors="*{courseCode}" class="validation-error"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="student-phone">Telefon no:</label><br/>
+            <input class="form-control" id="student-phone" th:field="*{phone}">
+            <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="validation-error"></div>
+        </div>
+
+             <div class="form-group">
+                 <label for="student-sector">Sektor:</label><br/>
+                 <select class="form-control" id="student-sector" th:field="*{sector}">
+                   <option th:each="sector : ${sectors}" th:value="${sector.id}" th:text="${sector.name}"></option>
+                 </select>
+             </div>
+
         <input type="submit" value="Yadda saxla" class="btn btn-success">
+        </div>
+         <div class="col-sm-2"></div>
+     </div>
+     </div>
     </form>
 </div>
 </body>

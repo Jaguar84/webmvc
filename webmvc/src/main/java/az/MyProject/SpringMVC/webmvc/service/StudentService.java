@@ -1,7 +1,9 @@
 package az.MyProject.SpringMVC.webmvc.service;
 
+import az.MyProject.SpringMVC.webmvc.model.Sector;
 import az.MyProject.SpringMVC.webmvc.model.Student;
-import az.MyProject.SpringMVC.webmvc.repository.StudentRepository;
+import az.MyProject.SpringMVC.webmvc.repository.SectorRepository;
+import az.MyProject.SpringMVC.webmvc.repository.StudentRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +14,13 @@ import java.util.List;
 
 @Service
 public class StudentService {
+
     @Autowired
-    private StudentRepository repository;
+    private StudentRepositoryJPA studentRepositoryJPA;
+
+
+
+    // private StudentRepository repository;
 
     private List<Student> studentLists = new ArrayList<>();
 
@@ -29,25 +36,48 @@ public class StudentService {
 
     public void addStudent(Student student) {
 
-        repository.addStudentDb(student);
+        studentRepositoryJPA.save(student);
     }
 
     public List<Student> findAll() {
-        return repository.findAll();
+
+        List<Student> students= studentRepositoryJPA.findAll();
+
+        for( Student student : students){
+            if(student.getSector()==null){
+                student.setSector(new Sector());
+            }
+        }
+        return students;
     }
 
-    public  void deleteById(Integer id){
-        repository.deleteById(id);
+    public  boolean deleteById(Integer id){
+
+        boolean studentExits=studentRepositoryJPA.findById(id).isPresent();
+
+        if(studentExits){
+            studentRepositoryJPA.deleteById(id);
+            return true;
+        }else {
+            return  false;
+        }
+
 
     }
 
     public Student findById(Integer id){
-      return repository.findById(id);
+      return studentRepositoryJPA.findById(id).get();
 
     }
 
     public void editStudent(Student student) {
 
-        repository.editStudentDb(student);
+      studentRepositoryJPA.save(student);
+    }
+
+    public  List<Student> findAllSearch(String name){;
+      // return studentRepositoryJPA.findAllByName(name);
+      //  return studentRepositoryJPA.searchStudentByName(name);
+        return null;
     }
 }

@@ -16,16 +16,28 @@
 <body>
 
 
-    <h1 style="text-align: center">Salam students sehifesine xos gelmisiniz</h1>
 
-    <a class="btn btn-success" th:href="@{/students/new}">Telebe Qeydiyyatir</a>
-    <br/>
+    <div style="width: 70%; margin: auto">
+        <h1 style="text-align: center">Salam students sehifesine xos gelmisiniz</h1>
+        <a class="btn btn-success" th:href="@{/}">Ana səhifə</a>
+        <a class="btn btn-success" th:href="@{/students/new}">Telebe Qeydiyyatir</a>
+        <form style="display: inline-block" th:action="@{/students/list/search}">
+            <input placeholder="Axtarış" class="form-control" name="studentName">
+        </form>
+        <hr>
+
     <table class="table">
         <thead>
         <tr>
             <th scope="col">#</th>
             <th scope="col">First name</th>
             <th scope="col">Last name</th>
+            <th scope="col">Class</th>
+            <th scope="col">Birthday</th>
+            <th scope="col">E-mail
+            <th scope="col">Kurs Kodu</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Sektor</th>
             <th></th>
         </tr>
         </thead>
@@ -34,15 +46,22 @@
             <th scope="row" th:text="${student.id}"></th>
             <td th:text="${student.name}"></td>
             <td th:text="${student.sureName}"></td>
+            <td th:text="${student.studentClass}"></td>
+            <td th:text="${student.birthday}"></td>
+            <td th:text="${student.email}"></td>
+            <td th:text="${student.courseCode}"></td>
+            <td th:text="${student.phone}"></td>
+            <td th:text="${student.sector.name}"></td>
             <td>
                 <a th:href="@{/students/delete/{id}(id=${student.id})}" class="btn btn-danger"
                    onclick="return confirm('Tələbə məlumatı silinsinmi?')">Sil</a>
                 <a th:href="@{/students/edit/{id}(id=${student.id})}" class="btn btn-warning">Düzəliş et</a>
             </td>
+
         </tr>
 
         </tbody>
     </table>
-
+    </div>
 </body>
 </html>

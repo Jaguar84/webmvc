@@ -1,3 +1,4 @@
+
 package az.MyProject.SpringMVC.webmvc.repository;
 
 
@@ -11,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Date;
 
 @Repository
 public class StudentRepository {
@@ -21,9 +23,14 @@ public class StudentRepository {
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement statement = connection
-                    .prepareStatement("INSERT  into studentn (name, surename) values(?,?)");
+                    .prepareStatement("INSERT  into studentn (name, surename,student_class,birthday,email,courseCode,phone) values(?,?,?,?,?,?,?)");
             statement.setString(1, student.getName());
             statement.setString(2, student.getSureName());
+            statement.setInt(3, student.getStudentClass());
+            statement.setDate(4, student.getBirthday());
+            statement.setString(5, student.getEmail());
+            statement.setString(6, student.getCourseCode());
+            statement.setString(7, student.getPhone());
             statement.executeUpdate();
             statement.close();
             connection.close();
@@ -43,7 +50,7 @@ public class StudentRepository {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                Student student = new Student(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("surename"));
+                Student student = new Student(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("surename"),resultSet.getInt("student_class"),resultSet.getDate("birthday"),resultSet.getString("email"), resultSet.getString("courseCode"), resultSet.getString("phone"));
                 students.add(student);
             }
             statement.close();
@@ -55,6 +62,7 @@ public class StudentRepository {
 
 
     }
+
 
 
     public void deleteById(Integer id) {
@@ -71,6 +79,8 @@ public class StudentRepository {
         }
     }
 
+
+
     public Student findById(Integer id) {
         Student student = null;
         try {
@@ -84,7 +94,12 @@ public class StudentRepository {
                 student = new Student(
                         result.getInt("id"),
                         result.getString("name"),
-                        result.getString("surename")
+                        result.getString("surename"),
+                        result.getInt("student_class"),
+                        result.getDate("birthday"),
+                        result.getString("email"),
+                        result.getString("courseCode"),
+                        result.getString("phone")
                 );
             }
             result.close();
@@ -98,14 +113,21 @@ public class StudentRepository {
 
     }
 
+
+
     public void editStudentDb(Student student) {
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement statement = connection
-                    .prepareStatement("update  studentn set name=?, surename=? where id=?");
+                    .prepareStatement("update  studentn set name=?, surename=?, student_class=?,birthday=?,email=?, courseCode=?,phone=? where id=?");
             statement.setString(1, student.getName());
             statement.setString(2, student.getSureName());
-            statement.setInt(3,student.getId());
+            statement.setInt(3, student.getStudentClass());
+            statement.setDate(4, student.getBirthday());
+            statement.setString(5,student.getEmail());
+            statement.setString(6,student.getCourseCode());
+            statement.setString(7,student.getPhone());
+            statement.setInt(8,student.getId());
             statement.executeUpdate();
             statement.close();
             connection.close();
@@ -116,4 +138,32 @@ public class StudentRepository {
 
 
 
+
+
+    public List<Student> findAllSearch(String name) {
+        List<Student> students = new ArrayList<Student>();
+
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement statement = connection
+                    .prepareStatement("select * from studentn where name=?;");
+            statement.setString(1,name);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Student student = new Student(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("surename"),resultSet.getInt("student_class"),resultSet.getDate("birthday"),resultSet.getString("email"), resultSet.getString("courseCode"), resultSet.getString("phone"));
+                students.add(student);
+            }
+            statement.close();
+            connection.close();
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return students;
+
+
+    }
+
 }
+
