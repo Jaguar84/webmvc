@@ -2,6 +2,7 @@ package az.MyProject.SpringMVC.webmvc.controller;
 
 
 import az.MyProject.SpringMVC.webmvc.model.Student;
+import az.MyProject.SpringMVC.webmvc.repository.LanguageRepositoryJPA;
 import az.MyProject.SpringMVC.webmvc.repository.SectorRepository;
 import az.MyProject.SpringMVC.webmvc.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,8 @@ public class StudentController {
     @Autowired
     private SectorRepository sectorRepository;
 
+    @Autowired
+    private LanguageRepositoryJPA languageRepositoryJPA;
 
     @GetMapping(path = "/list")
     @PreAuthorize(value = "hasAuthority('read:all:students')")
@@ -66,6 +69,7 @@ public class StudentController {
         model.addAttribute("student", s);
         model.addAttribute("header","Tələbə qeydiyyatı");
         model.addAttribute("sectors",sectorRepository.findAll());
+        model.addAttribute("languages",languageRepositoryJPA.findAll());
        // s.setName("Nusret");
         return "save-student";
     }
@@ -109,6 +113,7 @@ public class StudentController {
         model.addAttribute("student", student);
         model.addAttribute("header","Tələbə məlumatlarının redaktəsi");
         model.addAttribute("sectors",sectorRepository.findAll());
+        model.addAttribute("languages",languageRepositoryJPA.findAll());
         return "save-student";
     }
 

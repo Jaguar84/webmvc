@@ -7,12 +7,14 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.sql.Date;
+import java.util.List;
 
 
 //@AllArgsConstructor
 @Data
 @Getter
 @Setter
+
 //@NoArgsConstructor
 @Table(name = "studentn")
 @Entity
@@ -55,6 +57,12 @@ public class Student {
     @ManyToOne
     @JoinColumn(name = "sector_id")
     private  Sector sector;
+
+
+    @ManyToMany
+    private List<Language> languages;
+
+
 //    public Integer getStudentClass() {
 //        return studentClass;
 //    }
@@ -167,6 +175,19 @@ public class Student {
         this.email = email;
         this.courseCode = courseCode;
         this.phone = phone;
+    }
+
+    public Student(Integer id, String name, String sureName, Integer studentClass, Date birthday, String email, String courseCode, String phone, Sector sector, List<Language> languages) {
+        this.id = id;
+        this.name = name;
+        this.sureName = sureName;
+        this.studentClass = studentClass;
+        this.birthday = birthday;
+        this.email = email;
+        this.courseCode = courseCode;
+        this.phone = phone;
+        this.sector = sector;
+        this.languages = languages;
     }
 }
 

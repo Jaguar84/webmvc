@@ -24,12 +24,12 @@ create table users
 
 --
 INSERT INTO studentn (name, sure_name, student_class, birthday, email, course_code, phone)
-VALUES ('eli', 'kerimli',2,'2022-10-10','nusret@gmail.com','MYaaa','000-000-0000'),
-       ('nusretin', 'kerimov',2,'2022-10-10','nusret@gmail.com','MYaaa','000-000-0000'),
-       ('fikret', 'kerimov',2,'2022-10-10','nusret@gmail.com','MYaaa','000-000-0000'),
-       ('adil', 'cabbarli',2,'2022-10-10','nusret@gmail.com','MYaaa','000-000-0000'),
-       ('suleyman', 'cabbarli',2,'2022-10-10','nusret@gmail.com','MYaaa','000-000-0000'),
-       ('qudret', 'kerimli',2,'2022-10-10','nusret@gmail.com','MYaaa','000-000-0000');
+VALUES ('eli', 'kerimli',2,'2022-10-10','nusret@gmail.com','Myaaa','000-000-0000'),
+       ('nusretin', 'kerimov',2,'2022-10-10','nusret@gmail.com','Myaaa','000-000-0000'),
+       ('fikret', 'kerimov',2,'2022-10-10','nusret@gmail.com','Myaaa','000-000-0000'),
+       ('adil', 'cabbarli',2,'2022-10-10','nusret@gmail.com','Myaaa','000-000-0000'),
+       ('suleyman', 'cabbarli',2,'2022-10-10','nusret@gmail.com','Myaaa','000-000-0000'),
+       ('qudret', 'kerimli',2,'2022-10-10','nusret@gmail.com','Myaaa','000-000-0000');
 
 
 
@@ -47,11 +47,26 @@ create  table  authorities(
 
 
 insert into sectors (name)
-values    ('Az'),
+values ('Az'),
        ('İngilis'),
        ('Alman'),
        ('Fransiz'),
        ('RUs');
+
+insert into programming_languages (name)
+values    ('Java'),
+          ('Phyton'),
+          ('Javascript'),
+          ('Go'),
+          ('Hack'),
+          ('Pascal'),
+          ('C'),
+          ('Php'),
+          ('Scala'),
+          ('Perl');
+
+
+
 
 INSERT  INTO  authorities (username, authority)
 values ( 'yusif','read:all:students' ),
@@ -74,6 +89,9 @@ values ( 'yusif','read:all:students' ),
        ( 'huseyn','delete:student' ),
        ( 'huseyn','open:new:student:page' ),
        ( 'huseyn','save:student' );
+
+
+
 
 --
 -- read:all:students

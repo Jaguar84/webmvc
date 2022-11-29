@@ -38,6 +38,7 @@
             <th scope="col">Kurs Kodu</th>
             <th scope="col">Phone</th>
             <th scope="col">Sektor</th>
+            <th scope="col">Bildiyi Proqram dilleri</th>
             <th></th>
         </tr>
         </thead>
@@ -52,6 +53,12 @@
             <td th:text="${student.courseCode}"></td>
             <td th:text="${student.phone}"></td>
             <td th:text="${student.sector.name}"></td>
+            <td>
+                <ul>
+                    <li th:each="language : ${student.languages}" th:text="${language.name}"></li>
+                </ul>
+
+            </td>
             <td>
                 <a th:href="@{/students/delete/{id}(id=${student.id})}" class="btn btn-danger"
                    onclick="return confirm('Tələbə məlumatı silinsinmi?')">Sil</a>
